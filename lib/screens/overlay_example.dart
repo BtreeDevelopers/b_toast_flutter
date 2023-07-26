@@ -1,69 +1,36 @@
-import 'package:btoastflutter/widgets/b_toast.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const OverlayApp());
+import '../widgets/b_toast.dart';
 
-class OverlayApp extends StatelessWidget {
-  const OverlayApp({Key? key}) : super(key: key);
+void main() {
+  runApp(MyApp());
+}
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: OverlayExample(),
+      home: MainScreen(),
     );
   }
 }
 
-class OverlayExample extends StatefulWidget {
-  const OverlayExample({Key? key}) : super(key: key);
-
-  @override
-  State<OverlayExample> createState() => _OverlayExampleState();
-}
-
-class _OverlayExampleState extends State<OverlayExample>
-    with TickerProviderStateMixin {
-  BToast? bToast;
-
-  @override
-  void initState() {
-    super.initState();
-    bToast = BToast(context, this);
-  }
-
-  @override
-  void dispose() {
-    bToast?.dispose();
-    super.dispose();
-  }
-
+class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    bToast?.show(
-                      borderColor: Colors.red,
-                    );
-                  });
-                },
-                child: const Text('Explore'),
-              ),
-              const SizedBox(height: 10.0),
-              ElevatedButton(
-                onPressed: () {
-                  bToast?.hide();
-                },
-                child: const Text('Remove Overlay'),
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('OverlayEntry Example'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Show the overlay when the button is pressed
+            ComponentLinearProgressOverlay.show(context);
+
+            // Simulate hiding the overlay after 5 seconds (5000 milliseconds)
+          },
+          child: Text('Show Overlay'),
         ),
       ),
     );

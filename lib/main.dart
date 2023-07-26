@@ -1,15 +1,39 @@
 import 'package:flutter/material.dart';
-import 'screens/overlay_example.dart';
 
-void main() => runApp(const OverlayApp());
+import '../widgets/b_toast.dart';
 
-class OverlayApp extends StatelessWidget {
-  const OverlayApp({Key? key}) : super(key: key);
+void main() {
+  runApp(MyApp());
+}
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: OverlayExample(),
+      home: MainScreen(),
+    );
+  }
+}
+
+class MainScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('OverlayEntry Example'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Show the overlay when the button is pressed
+            ComponentLinearProgressOverlay.show(context, "teste talao",
+                duration: 5, theme: Type.WARNING, isDark: true);
+
+            // Simulate hiding the overlay after 5 seconds (5000 milliseconds)
+          },
+          child: Text('Show Overlay'),
+        ),
+      ),
     );
   }
 }

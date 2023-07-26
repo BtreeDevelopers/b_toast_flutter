@@ -28,7 +28,7 @@ class MainScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Show the overlay when the button is pressed
-                BToast.show(context, "teste talao",
+                BToast.show(context, "teste Toast",
                     duration: 20, theme: Type.WARNING, isDark: true);
 
                 // Simulate hiding the overlay after 5 seconds (5000 milliseconds)

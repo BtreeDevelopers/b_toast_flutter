@@ -16,7 +16,10 @@ class ComponentLinearProgressOverlay {
       GlobalKey<_ListToastState>();
 
   static void show(BuildContext context, String content,
-      {int duration = 5, Type theme = Type.SUCCESS, bool isDark = true}) {
+      {int duration = 5,
+      Type theme = Type.SUCCESS,
+      bool isDark = true,
+      String title = ""}) {
     // hide();
     int index = _toasts.length;
     _toasts.add(ComponentLinearProgress(
@@ -25,7 +28,8 @@ class ComponentLinearProgressOverlay {
         id: index,
         theme: theme,
         isDark: isDark,
-        content: content));
+        content: content,
+        title: title));
     // print(_toasts.length);
     if (!_inScreen) {
       OverlayEntry overlayEntry = OverlayEntry(
@@ -93,6 +97,7 @@ class ComponentLinearProgress extends StatefulWidget {
   late final bool isDark;
   late final Type theme;
   late final String content;
+  late final String title;
   ComponentLinearProgress(
       {super.key,
       required this.hide,
@@ -100,6 +105,7 @@ class ComponentLinearProgress extends StatefulWidget {
       required this.id,
       required this.isDark,
       required this.theme,
+      required this.title,
       required this.content});
   // Adicione a chave global aqui
 
@@ -207,15 +213,39 @@ class _ComponentLinearProgressState extends State<ComponentLinearProgress>
                                   child: Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                    child: Text(
-                                      widget.content,
-                                      style: TextStyle(
-                                        color: widget.isDark
-                                            ? const Color(0xffC6C6C6)
-                                            : Colors.black,
-                                        fontSize: 14.0,
-                                        decoration: TextDecoration.none,
-                                      ),
+                                    child: Row(
+                                      children: [
+                                        widget.title != ""
+                                            ? Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 5),
+                                                child: Text(
+                                                  widget.title,
+                                                  style: TextStyle(
+                                                    fontFamily: "Poppins",
+                                                    color: themeColor[
+                                                        widget.theme]!,
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  ),
+                                                ),
+                                              )
+                                            : SizedBox.shrink(),
+                                        Text(
+                                          widget.content,
+                                          style: TextStyle(
+                                            fontFamily: "Poppins",
+                                            color: widget.isDark
+                                                ? const Color(0xffC6C6C6)
+                                                : Colors.black,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w400,
+                                            decoration: TextDecoration.none,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),

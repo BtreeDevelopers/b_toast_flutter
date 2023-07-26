@@ -23,15 +23,28 @@ class MainScreen extends StatelessWidget {
         title: Text('OverlayEntry Example'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Show the overlay when the button is pressed
-            ComponentLinearProgressOverlay.show(context, "teste talao",
-                duration: 5, theme: Type.WARNING, isDark: true);
+        child: Row(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                // Show the overlay when the button is pressed
+                BToast.show(context, "teste talao",
+                    duration: 20, theme: Type.WARNING, isDark: true);
 
-            // Simulate hiding the overlay after 5 seconds (5000 milliseconds)
-          },
-          child: Text('Show Overlay'),
+                // Simulate hiding the overlay after 5 seconds (5000 milliseconds)
+              },
+              child: Text('Show Overlay'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Show the overlay when the button is pressed
+                BToast.hide();
+
+                // Simulate hiding the overlay after 5 seconds (5000 milliseconds)
+              },
+              child: Text('Remove All'),
+            ),
+          ],
         ),
       ),
     );

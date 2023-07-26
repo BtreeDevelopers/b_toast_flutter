@@ -7,7 +7,7 @@ enum Type {
   INFO,
 }
 
-class ComponentLinearProgressOverlay {
+class BToast {
   // static List<OverlayEntry> _overlayEntries = [];
   static late OverlayEntry? _overlayEntry = null;
   static late bool _inScreen = false;
@@ -22,7 +22,7 @@ class ComponentLinearProgressOverlay {
       String title = ""}) {
     // hide();
     int index = _toasts.length;
-    _toasts.add(ComponentLinearProgress(
+    _toasts.add(BToastComponent(
         hide: () => removeList(index),
         duration: duration,
         id: index,
@@ -30,7 +30,6 @@ class ComponentLinearProgressOverlay {
         isDark: isDark,
         content: content,
         title: title));
-    // print(_toasts.length);
     if (!_inScreen) {
       OverlayEntry overlayEntry = OverlayEntry(
           builder: (BuildContext context) =>
@@ -43,9 +42,7 @@ class ComponentLinearProgressOverlay {
   }
 
   static void removeList(int index) {
-    print('remover at ' + index.toString());
     _toasts.removeAt(index);
-    print('final list ' + _toasts.length.toString());
     _listToastKey.currentState?.updateToasts('rmv');
     if (_toasts.isEmpty) {
       hide();
@@ -53,7 +50,11 @@ class ComponentLinearProgressOverlay {
   }
 
   static void hide() {
-    print('hidando');
+    if (_toasts.isNotEmpty) {
+      int index = 0;
+      _toasts.clear();
+      _listToastKey.currentState?.updateToasts('rmv');
+    }
     if (_overlayEntry != null) {
       // OverlayEntry overlayEntry = _overlayEntries.removeLast();
       _overlayEntry!.remove();
@@ -76,10 +77,7 @@ class ListToast extends StatefulWidget {
 
 class _ListToastState extends State<ListToast> {
   void updateToasts(String fun) {
-    print('teste ' + fun + widget._toasts.length.toString());
-    setState(() {
-      print('teste2 ' + fun + widget._toasts.length.toString());
-    });
+    setState(() {});
   }
 
   @override
@@ -90,7 +88,7 @@ class _ListToastState extends State<ListToast> {
   }
 }
 
-class ComponentLinearProgress extends StatefulWidget {
+class BToastComponent extends StatefulWidget {
   late final Function hide;
   late final int id;
   late final int duration;
@@ -98,7 +96,7 @@ class ComponentLinearProgress extends StatefulWidget {
   late final Type theme;
   late final String content;
   late final String title;
-  ComponentLinearProgress(
+  BToastComponent(
       {super.key,
       required this.hide,
       required this.duration,
@@ -108,13 +106,11 @@ class ComponentLinearProgress extends StatefulWidget {
       required this.title,
       required this.content});
   // Adicione a chave global aqui
-
   @override
-  _ComponentLinearProgressState createState() =>
-      _ComponentLinearProgressState();
+  _BToastComponentState createState() => _BToastComponentState();
 }
 
-class _ComponentLinearProgressState extends State<ComponentLinearProgress>
+class _BToastComponentState extends State<BToastComponent>
     with TickerProviderStateMixin {
   final themeColor = {
     Type.SUCCESS: const Color(0xff00f391),
